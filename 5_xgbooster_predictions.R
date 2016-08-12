@@ -2,8 +2,8 @@ library(xgboost)
 
 for (i in 1:30){
   
-  train <- read.csv("./clean_Dataset/train.csv", stringsAsFactors = FALSE)
-  labels <- read.csv("./raw_Dataset/target.csv", stringsAsFactors = FALSE)
+  train <- read.csv("./clean_dataset/train.csv", stringsAsFactors = FALSE)
+  labels <- read.csv("./raw_dataset/target.csv", stringsAsFactors = FALSE)
   
   target <- rep(0,nrow(train))
   target[labels$status_group == "non functional"] <- 1
