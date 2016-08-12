@@ -4,9 +4,9 @@
 #
 ####
 
-test <- read.csv("./raw_Dataset/test.csv", stringsAsFactors = FALSE)
-train <- read.csv("./raw_Dataset/train.csv", stringsAsFactors = FALSE)
-keywords <- read.csv("./clean_Dataset/keywords.csv", stringsAsFactors = FALSE)
+test <- read.csv("./raw_dataset/test.csv", stringsAsFactors = FALSE)
+train <- read.csv("./raw_dataset/train.csv", stringsAsFactors = FALSE)
+keywords <- read.csv("./clean_dataset/keywords.csv", stringsAsFactors = FALSE)
 
 #####
 #
