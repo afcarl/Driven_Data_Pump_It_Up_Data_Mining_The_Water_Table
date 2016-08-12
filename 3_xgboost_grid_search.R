@@ -3,8 +3,11 @@ library(xgboost)
 ####
 #
 # The cleaned train and labels are loaded in.
-# 
+# The target is encoded as a numeric vector.
+# The ID variable is dropped and the training set is transformed into a data matrix. 
+#
 ####
+
 train <- read.csv("./clean_Dataset/train.csv", stringsAsFactors = FALSE)
 labels <- read.csv("./raw_Dataset/target.csv", stringsAsFactors = FALSE)
   
@@ -16,6 +19,15 @@ train <- train[,-1]
 predictors <- data.matrix(train)
 rm(train)
 
+
+######
+#
+# The parameters used in the grid searh are the depth, learning rate and the variable/observation sampling. 
+# The cross-validation is used with 5 folds.
+# Early stopping is based on the multi-class error rate.
+# The results are dumped as csv files.
+#
+######
   
 depth <- c(21, 19, 17, 15, 13, 11, 9, 7, 5, 3)
 eta <- c(20:2) / 100
