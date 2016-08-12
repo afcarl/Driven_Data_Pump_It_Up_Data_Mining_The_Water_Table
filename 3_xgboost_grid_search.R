@@ -19,7 +19,6 @@ train <- train[,-1]
 predictors <- data.matrix(train)
 rm(train)
 
-
 ######
 #
 # The parameters used in the grid searh are the depth, learning rate and the variable/observation sampling. 
@@ -33,7 +32,6 @@ depth <- c(21, 19, 17, 15, 13, 11, 9, 7, 5, 3)
 eta <- c(20:2) / 100
 subsample <- 5:10 / 10
 colsample <- 5:10 / 10
-
 
 for (d in depth){
   for (e in eta){
