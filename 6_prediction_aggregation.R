@@ -33,7 +33,7 @@ target <- colnames(aggregated_prediction[,2:4])[apply(aggregated_prediction[,2:4
 target[target == "non.functional"] <- "non functional"
 target[target == "functional.needs.repair"] <- "functional needs repair"
 
-submission <- data.frame(aggregated_prediction[,1],target)
+submission <- data.frame(aggregated_prediction[, 1],target)
 
 colnames(submission) <- c("id", "status_group")
 
