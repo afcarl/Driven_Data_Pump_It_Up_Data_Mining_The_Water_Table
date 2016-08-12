@@ -1,6 +1,6 @@
 ####
 #
-# First the raw datasets are loaded wit the list of keywords.
+# First the raw datasets are loaded with the list of keywords.
 #
 ####
 
@@ -10,7 +10,7 @@ keywords <- read.csv("./clean_Dataset/keywords.csv", stringsAsFactors = FALSE)
 
 #####
 #
-# The dummifier helps in the production of consistent tables.
+# The dummygen function helps in the production of consistent tables.
 #
 #####
 
@@ -18,7 +18,7 @@ dummygen <- function(new_table, original_table, dummified_column, column_values,
   
   ######
   #
-  # INPUT 1. -- The new cleaned table -- I will attach the dummies.
+  # INPUT 1. -- The new cleaned table -- I will attach the dummies to this table.
   # INPUT 2. -- The original table that is being cleaned.
   # INPUT 3. -- The column that has the strings.
   # INPUT 4. -- The unique values in the column encoded.
@@ -51,11 +51,10 @@ data_munger <- function(input_table, keywords){
   #####
   #
   # INPUT 1.: The table to be cleaned.
-  # INPUT 2,: The table of frequent keywords.
+  # INPUT 2.: The table of frequent keywords.
   # OUTPUT: The cleaned numeric tables.
   #
   #####
-  
   
   ######
   #
@@ -72,12 +71,11 @@ data_munger <- function(input_table, keywords){
   ######
   
   colnames(new_table) <- c("id")
-  
   new_table$id <- input_table$id
   
   ######
   #
-  # The amount is skewed, the log transformation can help during the quantile sketch.
+  # The amount variable is skewed, the log transformation can help during the quantile sketch.
   # Addition of one is needed to avoid missing values.
   # The square is added and a dummy to flag values above the third quantile.
   #
@@ -88,8 +86,7 @@ data_munger <- function(input_table, keywords){
   new_table$amount_squared <- new_table$amount * new_table$amount
   
   new_table$amount_q3 <- 0
-  
-  new_table$amount_q3[new_table$amount > quantile(train$amount)[4]] <- 1
+  new_table$amount_q3[new_table$amount > 3.044] <- 1
   
   #####
   #
@@ -340,7 +337,6 @@ data_munger <- function(input_table, keywords){
                        "dam")
   
   new_table <- dummygen(new_table, input_table, "quantity", quantity, "quantity_")
-  
   
   #####
   #
