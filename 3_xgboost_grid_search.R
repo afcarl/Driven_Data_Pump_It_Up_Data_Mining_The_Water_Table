@@ -1,0 +1,46 @@
+library(xgboost)
+
+  
+train <- read.csv("./clean_Dataset/train.csv", stringsAsFactors = FALSE)
+labels <- read.csv("./raw_Dataset/target.csv", stringsAsFactors = FALSE)
+  
+target <- rep(0,nrow(train))
+target[labels$status_group == "non functional"] <- 1
+target[labels$status_group == "functional needs repair"] <- 2
+  
+train <- train[,-1] 
+predictors <- data.matrix(train)
+rm(train)
+
+  
+depth <- c(21, 19, 17, 15, 13, 11, 9, 7, 5, 3)
+eta <- c(20:2) / 100
+subsample <- 5:10 / 10
+colsample <- 5:10 / 10
+
+
+for (d in depth){
+  for (e in eta){
+    for (s in subsample){
+      for (c in colsample){
+        
+          bst_model <- xgb.cv(data = predictors,
+                              nfold = 5,
+                              early.stop.round = 30,
+                              label = target,
+                              num_class = 3,
+                              max_depth = 17,
+                              eta = 0.02,
+                              nthread = 12,
+                              subsample = 0.8,
+                              colsample_bytree = 0.5,
+                              min_child_weight = 1,
+                              nrounds = 600, 
+                              objective = "multi:softprob",
+                              maximize = FALSE)
+          
+          write.csv(bst_model, file = paste0("./cross_validation/results_depth_",d,"_eta_",e,"_subsample_",s,"_colsample_",c,".csv"), row.names = FALSE)
+      }
+    }
+  }
+}
