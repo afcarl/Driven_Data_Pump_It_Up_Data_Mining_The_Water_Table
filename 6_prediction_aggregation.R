@@ -1,5 +1,11 @@
 predictions <- list.files("./predictions/")
 
+####
+#
+# The predictions are averaged for the class -- observations.
+#
+####
+
 i <- 0
 for (p in predictions){
   i <- i + 1
@@ -15,7 +21,15 @@ for (p in predictions){
 
 aggregated_prediction[,2:4] <- aggregated_prediction[,2:4]/30
 
-target <- colnames(aggregated_prediction[,2:4])[apply(aggregated_prediction[,2:4],1,which.max)]
+#####
+#
+# The labels with highest probability are chosen as predictions.
+# The label is transformed back, the target and ID are concatenated.
+# The submission file is dumped.
+#
+#####
+
+target <- colnames(aggregated_prediction[,2:4])[apply(aggregated_prediction[,2:4], 1, which.max)]
 target[target == "non.functional"] <- "non functional"
 target[target == "functional.needs.repair"] <- "functional needs repair"
 
