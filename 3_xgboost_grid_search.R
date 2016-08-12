@@ -1,6 +1,10 @@
 library(xgboost)
 
-  
+####
+#
+# The cleaned train and labels are loaded in.
+# 
+####
 train <- read.csv("./clean_Dataset/train.csv", stringsAsFactors = FALSE)
 labels <- read.csv("./raw_Dataset/target.csv", stringsAsFactors = FALSE)
   
