@@ -37,4 +37,4 @@ submission <- data.frame(aggregated_prediction[,1],target)
 
 colnames(submission) <- c("id", "status_group")
 
-write.csv(submission,"submission.csv",row.names = FALSE)
+write.csv(submission, "submission.csv", row.names = FALSE)
