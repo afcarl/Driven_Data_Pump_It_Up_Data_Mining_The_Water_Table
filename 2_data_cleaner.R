@@ -181,33 +181,27 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "construction_year", construction_year, "construction_year_")
   
-  #####
-  #
+  #--------------------------------------------------------------
   # The scheme management values are included in the config file.
   # After it is loaded from the keywords it can be dummified. 
-  #
-  #####
+  #--------------------------------------------------------------
   
   scheme_management <- keywords$scheme_management[!is.na(keywords$scheme_management)]
   
   new_table <- dummygen(new_table, input_table, "scheme_management", scheme_management, "scheme_man_")
   
-  #####
-  #
+  #------------------------------------------------------------
   # The extraction type values are included in the config file.
   # After it is loaded from the keywords it can be dummified. 
-  #
-  #####
+  #------------------------------------------------------------
   
   extraction_type <- keywords$extraction_type[!is.na(keywords$extraction_type)]
   
   new_table <- dummygen(new_table, input_table, "extraction_type", extraction_type, "ext_type_")
   
-  #####
-  #
+  #-------------------------------
   # The sources are defined here.
-  #
-  #####
+  #-------------------------------
   
   source <- c("spring",
               "rainwater harvesting",
@@ -222,11 +216,9 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "source", source, "source_")
   
-  #####
-  #
+  #----------------------------------------------------
   # The payment is dummified based on the keyword list.
-  #
-  #####
+  #----------------------------------------------------
   
   payment <- c("pay annually",
                 "never pay",
@@ -238,11 +230,9 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "payment", payment, "payment_")
   
-  #####
-  #
+  #-----------------------------------------------------------------------------------------
   # The waterquality only has a few values, so they are defined here and encoded as dummies.
-  #
-  #####
+  #-----------------------------------------------------------------------------------------
   
   water_quality <- c("soft",
                      "salty",
@@ -255,11 +245,9 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "water_quality", water_quality, "water_quality_")
   
-  #####
-  #
+  #-----------------------------------------------------------
   # The quality group is dummified based on the keyword list.
-  #
-  #####
+  #-----------------------------------------------------------
   
   quality_group <- c("good",
                      "salty",
@@ -270,11 +258,9 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "quality_group", quality_group, "quality_group_")
   
-  #####
-  #
+  #-----------------------------------------------------
   # The quantity is dummified based on the keyword list.
-  #
-  #####
+  #-----------------------------------------------------
   
   quantity <- c("enough",
                 "insufficient",
@@ -284,11 +270,9 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "quantity", quantity, "quantity_")
   
-  #####
-  #
+  #------------------------------------------------------------
   # The waterpoint type is dummified based on the keyword list.
-  #
-  #####
+  #------------------------------------------------------------
   
   waterpoint_type <- c("communal standpipe",
                        "communal standpipe multiple",
@@ -300,71 +284,57 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "quantity", quantity, "quantity_")
   
-  #####
-  #
+  #---------------------------------------------------------
   # The source class is dummified based on the keyword list.
-  #
-  #####
+  #---------------------------------------------------------
   
   source_class <- c("groundwater","surface","unknown" )
   
   new_table <- dummygen(new_table, input_table, "source_class", source_class, "source_class_")
   
-  #####
-  #
+  #--------------------------------------------------------
   # The scheme name is dummified based on the keyword list.
-  #
-  #####
+  #--------------------------------------------------------
   
   scheme_name <- keywords$scheme_name[1:50]
   
   new_table <- dummygen(new_table, input_table, "scheme_name", scheme_name, "scheme_name_")
   
-  #####
-  #
+  #----------------------------------------------------------
   # The ward variable is dummified based on the keyword list.
-  #
-  #####
+  #----------------------------------------------------------
   
   ward <- keywords$ward[1:50]
   
   new_table <- dummygen(new_table, input_table, "ward", ward, "ward_")
   
-  #####
-  #
+  #---------------------------------------------------
   # The funder is dummified based on the keyword list.
-  #
-  #####
+  #---------------------------------------------------
   
   funder <- keywords$funder[1:50]
   
   new_table <- dummygen(new_table, input_table, "funder", funder, "funder_")
   
-  #####
-  #
+  #---------------------------------------------------------------
   # The installer variable is dummified based on the keyword list.
-  #
-  #####
+  #---------------------------------------------------------------
   
   installer <- keywords$installer[1:50]
   
   new_table <- dummygen(new_table, input_table, "installer", installer, "installer_")
   
-  #####
-  #
+  #------------------------------------------------
   # The LGA is dummified based on the keyword list.
-  #
-  #####
+  #------------------------------------------------
   
   lga <- keywords$lga[1:50]
   
   new_table <- dummygen(new_table, input_table, "lga", lga, "lga_")
   
-  #####
-  #
+  #-------------------------------------------------------------
   # The management group is dummified based on the keyword list.
-  #
-  #####
+  #-------------------------------------------------------------
   
   management_group <- c("parastatal",
                         "user-group",
@@ -377,11 +347,9 @@ data_munger <- function(input_table, keywords){
                         management_group,
                         "management_group_")
    
-  #####
-  #
+  #------------------------------------------------------------
   # The management type is dummified based on the keyword list.
-  #
-  #####
+  #------------------------------------------------------------
   
   management <- c("parastatal",
                   "vwc",
@@ -396,25 +364,19 @@ data_munger <- function(input_table, keywords){
                   "unknown",
                   "trust")
   
-  
   new_table <- dummygen(new_table, input_table, "management", management, "management_")
   
-  #####
-  #
+  #------------------------------------------------------------
   # The waterpoint name is dummified based on the keyword list.
-  #
-  #####
-  
+  #------------------------------------------------------------
   
   wpt_name <- keywords$wpt_name[1:50]
   
   new_table <- dummygen(new_table, input_table, "wpt_name", wpt_name, "wpt_name_")
   
-  #####
-  #
+  #-----------------------------------------------------------
   # The recording date is dummified based on the keyword list.
-  #
-  #####
+  #-----------------------------------------------------------
   
   dates <- keywords$date[1:50]
   
