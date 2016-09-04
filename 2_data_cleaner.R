@@ -46,30 +46,24 @@ data_munger <- function(input_table, keywords){
   # OUTPUT: The cleaned numeric tables.
   #-------------------------------------------
   
-  ######
-  #
+  #----------------------------------------------
   # Defining a target table for the cleaned data.
-  #
-  ######
+  #----------------------------------------------
   
   new_table <- data.frame(matrix(0, nrow(input_table), 1))
   
-  ######
-  #
+  #-----------------------------------------------------
   # The first variable extracted is the ID of the wells.
-  #
-  ######
+  #-----------------------------------------------------
   
   colnames(new_table) <- c("id")
   new_table$id <- input_table$id
   
-  ######
-  #
+  #-------------------------------------------------------------------------------------------
   # The amount variable is skewed, the log transformation can help during the quantile sketch.
   # Addition of one is needed to avoid missing values.
   # The square is added and a dummy to flag values above the third quantile.
-  #
-  ######
+  #-------------------------------------------------------------------------------------------
   
   new_table$amount <- log(input_table$amount_tsh + 1)
   
@@ -78,12 +72,10 @@ data_munger <- function(input_table, keywords){
   new_table$amount_q3 <- 0
   new_table$amount_q3[new_table$amount > 3.044] <- 1
   
-  #####
-  #
+  #--------------------------------------------------
   # I generate three searate dummies for the years.
-  # The within year seasonality might matter.
-  #
-  #####
+  # The across year seasonality might matter.
+  #--------------------------------------------------
   
   new_table$year_1<- 0
   new_table$year_1[substr(input_table$date_recorded, 1, 4) == "2011"] <- 1
@@ -94,14 +86,11 @@ data_munger <- function(input_table, keywords){
   new_table$year_3 <- 0
   new_table$year_3[substr(input_table$date_recorded, 1, 4) == "2013"] <- 1
   
-  #####
-  #
+  #-----------------------------------------------------------
   # The month values are mapped into separate dummy variables.
   # There is possible monthly seasonality.
   # This dummification is needed because of the date format.
-  #
-  #####
-  
+  #-----------------------------------------------------------
   
   month_values <- c("01", "02","03", "04", "05", "06",
                     "07", "08", "09", "10", "11", "12")
@@ -117,32 +106,25 @@ data_munger <- function(input_table, keywords){
     
   }
     
-  #####
-  #
+  #---------------------------------------------------------------
   # Sometimes weekends mark anomalies - so a dummy can be helpful.
-  #
-  #####
+  #---------------------------------------------------------------
   
   new_table$weekend <- 0
   new_table$weekend[lubridate::wday(input_table$date_recorded) %in% c(1, 7)] <- 1
   
-  #####
-  #
+  #----------------------------------------------------------
   # The GPS coordinates are mapped directly to the new table.
-  #
-  #####
+  #----------------------------------------------------------
    
   new_table$height <- input_table$gps_height
   new_table$longitude <- input_table$longitude
   new_table$latitude <- input_table$latitude
   
-  
-  #####
-  #
+  #---------------------------------------------------------
   # The basin values are not from they keywords config file.
   # They are dummified with my predefined function.
-  #
-  #####
+  #---------------------------------------------------------
   
   basins <- c("internal",
               "lake nyasa",
@@ -156,54 +138,44 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "basin", basins, "basin_")
   
-  #####
-  #
-  # The region values are from they keywords config file -- the dataframe is unbalanced.
+  #-------------------------------------------------------------------------------------
+  # The region values are from they keywords config file - the dataframe is unbalanced.
   # The dummifier is applied.
-  #
-  #####
+  #-------------------------------------------------------------------------------------
   
   region <- keywords$region[is.na(keywords$region) == FALSE]
     
   new_table <- dummygen(new_table, input_table, "region", region, "region_")
   
-  #####
-  #
+  #----------------------------------------------------------------------
   # The population is log transformed.
   # Based on the histogram the log transformed distribution has a saddle.
   # Data points above the saddle are flagged. 
-  #
-  #####
+  #----------------------------------------------------------------------
   
   new_table$population <- log(input_table$population + 1)
   new_table$population_below <- 0
   new_table$population_below[new_table$Population < 2] <- 1
   
-  #####
-  #
-  # The public meeting variable is dummified -- it has three unique values.
-  #
-  #####
+  #------------------------------------------------------------------------
+  # The public meeting variable is dummified - it has three unique values.
+  #------------------------------------------------------------------------
   
   public_meeting <- c("False", "True", "")
   
   new_table <- dummygen(new_table, input_table, "public_meeting", public_meeting, "public_meeting_")
   
-  #####
-  #
-  # The permit variable is dummified -- it has three unique values.
-  #
-  #####
+  #-----------------------------------------------------------------
+  # The permit variable is dummified - it has three unique values.
+  #-----------------------------------------------------------------
   
   permit <- c("False", "True", "")
   new_table <- dummygen(new_table, input_table, "permit", permit, "permit_")
   
-  #####
-  #
+  #-------------------------------------------------------
   # There are unique construction years from 1960 to 2013.
   # This can be dummified.
-  # 
-  #####
+  #-------------------------------------------------------
   
   construction_year <- c(0, c(1960:2013))
   
