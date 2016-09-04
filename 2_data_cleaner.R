@@ -382,35 +382,27 @@ data_munger <- function(input_table, keywords){
   
   new_table <- dummygen(new_table, input_table, "date_recorded", dates, "date_")
   
-  #####
-  #
+  #------------------------------------------------------
   # The subvilage is dummified based on the keyword list.
-  #
-  #####
-  
+  #------------------------------------------------------
   
   subvillage <- keywords$subvillage[1:50]
   
   new_table <- dummygen(new_table, input_table, "subvillage", subvillage, "subvillage_")
   
-
   return(new_table)
 }
 
-#####
-#
+#----------------------------------------------------------------------
 # The data cleaning function is executed on the train and test dataset.
-#
-#####
+#----------------------------------------------------------------------
 
 train <- data_munger(train, keywords)
 test <- data_munger(test, keywords)
 
-#####
-#
+#-------------------------------------------------------------
 # The clean tables are saved in the ./cleaned_dataset/ folder.
-#
-#####
+#-------------------------------------------------------------
 
 write.csv(train, file = "./clean_dataset/train.csv", row.names = FALSE)
 write.csv(test, file = "./clean_dataset/test.csv", row.names = FALSE)
