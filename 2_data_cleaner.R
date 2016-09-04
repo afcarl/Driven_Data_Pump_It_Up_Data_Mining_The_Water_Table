@@ -1,31 +1,25 @@
-####
-#
+#--------------------------------------------------------------
 # First the raw datasets are loaded with the list of keywords.
-#
-####
+#--------------------------------------------------------------
 
 test <- read.csv("./raw_dataset/test.csv", stringsAsFactors = FALSE)
 train <- read.csv("./raw_dataset/train.csv", stringsAsFactors = FALSE)
 keywords <- read.csv("./clean_dataset/keywords.csv", stringsAsFactors = FALSE)
 
-#####
-#
+#---------------------------------------------------------------------
 # The dummygen function helps in the production of consistent tables.
-#
-#####
+#---------------------------------------------------------------------
 
 dummygen <- function(new_table, original_table, dummified_column, column_values, new_name){ 
   
-  ######
-  #
+  #------------------------------------------------------------------------------
   # INPUT 1. -- The new cleaned table -- I will attach the dummies to this table.
   # INPUT 2. -- The original table that is being cleaned.
   # INPUT 3. -- The column that has the strings.
   # INPUT 4. -- The unique values in the column encoded.
   # INPUT 5. -- The new name of the columns.
   # OUTPUT -- The new table with the dummy variables.
-  #
-  ######
+  #------------------------------------------------------------------------------
   
   i <- 0
   
@@ -40,21 +34,17 @@ dummygen <- function(new_table, original_table, dummified_column, column_values,
   return(new_table)
 }
 
-#####
-#
+#---------------------------------------------------------------------------------------------------
 # The data cleaning process is done by a function which calls the dummifier function multiple times.
-#
-######
+#---------------------------------------------------------------------------------------------------
 
 data_munger <- function(input_table, keywords){
   
-  #####
-  #
+  #-------------------------------------------
   # INPUT 1.: The table to be cleaned.
   # INPUT 2.: The table of frequent keywords.
   # OUTPUT: The cleaned numeric tables.
-  #
-  #####
+  #-------------------------------------------
   
   ######
   #
