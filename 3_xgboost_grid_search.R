@@ -53,7 +53,7 @@ for (d in depth){
                               objective = "multi:softprob",
                               maximize = FALSE)
           
-          write.csv(bst_model, file = paste0("./cross_validation/results_depth_",d,"_eta_",e,"_subsample_",s,"_colsample_",c,".csv"), row.names = FALSE)
+          write.csv(bst_model, file = paste0("./cross_validation/results_depth_", d, "_eta_", e, "_subsample_", s, "_colsample_", c, ".csv"), row.names = FALSE)
       }
     }
   }
