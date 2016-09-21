@@ -13,18 +13,16 @@ target <- rep(0,nrow(train))
 target[labels$status_group == "non functional"] <- 1
 target[labels$status_group == "functional needs repair"] <- 2
   
-train <- train[,-1] 
+train <- train[, -1] 
 predictors <- data.matrix(train)
 rm(train)
 
-######
-#
+#-----------------------------------------------------------------------------------------------------------
 # The parameters used in the grid searh are the depth, learning rate and the variable/observation sampling. 
 # The cross-validation is used with 5 folds.
 # Early stopping is based on the multi-class error rate.
 # The results are dumped as csv files.
-#
-######
+#-----------------------------------------------------------------------------------------------------------
   
 depth <- c(21, 19, 17, 15, 13, 11, 9, 7, 5, 3)
 eta <- c(20:2) / 100
