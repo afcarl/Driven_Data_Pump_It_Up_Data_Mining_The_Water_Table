@@ -1,12 +1,10 @@
 library(xgboost)
 
-####
-#
+#------------------------------------------------------------------------------------
 # The cleaned train and labels are loaded in.
 # The target is encoded as a numeric vector.
 # The ID variable is dropped and the training set is transformed into a data matrix. 
-#
-####
+#-------------------------------------------------------------------------------------
 
 train <- read.csv("./clean_dataset/train.csv", stringsAsFactors = FALSE)
 labels <- read.csv("./raw_dataset/target.csv", stringsAsFactors = FALSE)
