@@ -30,8 +30,8 @@ rm(train)
   
 depth <- c(21, 19, 17, 15, 13, 11, 9, 7, 5, 3)
 eta <- c(20:2) / 100
-subsample <- 5:10 / 10
-colsample <- 5:10 / 10
+subsample <- c(5:10) / 10
+colsample <- c(5:10) / 10
 
 for (d in depth){
   for (e in eta){
